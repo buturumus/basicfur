@@ -1,0 +1,81 @@
+{# cell_new_goodsline.html #}
+
+{% load static %}
+
+  {% if 'load-dropdown' in extra_class %}
+    <td class="align-middle">
+      <select 
+        class="custom-select custom-select-sm{{ extra_class }}"
+        field_var="{{ var_name }}" 
+      >
+      {% if val %}
+          <option 
+            shadow_id="{{ shadow_id }}"
+            selected
+          >
+            {{ val }}
+          </option>
+        {% else %}
+          <option aria-disabled selected value
+          >
+          </option>
+        {% endif %}
+      </select>
+    </td>
+
+  {% elif is_input_flag %}
+    <td class="align-middle text-right">
+      <input 
+        class="form-control input-text-field{{ extra_class }}" 
+        type="text" value="{{ val }}"
+        field_var="{{ var_name }}" 
+        {% if show_shadow_flag %}
+          shadow_id="{{ shadow_id }}"
+        {% endif %}
+      >
+    </td>
+
+  {% elif is_pensil_flag %}
+    {# actually there's not pensil but x here #}
+    <td class="align-middle text-center">
+      <button 
+        class="btn btn-sm btn-outline-success{{ extra_class }}" 
+        type="button" 
+      >
+      &#8598; {{ btn_add_goodsline }} 
+      </button>
+    </td>
+
+  {% elif var_name == 'human_id' %}
+    <td class="align-middle text-right"
+        class="{{ extra_class }}"
+        field_var="{{ var_name }}" 
+        {% if show_shadow_flag %}
+          shadow_id="{{ shadow_id }}"
+        {% endif %}
+      >
+        {{ val }}
+    </td>
+
+  {% else %}
+    <td 
+      {% if var_name == 'purchase_human_id' %}
+        hidden
+      {% endif %}
+      class="align-middle text-right"
+    >
+      <span 
+        class="{{ extra_class }}"
+        field_var="{{ var_name }}" 
+        {% if show_shadow_flag %}
+          shadow_id="{{ shadow_id }}"
+        {% endif %}
+      >
+        {{ val }}
+      </span>
+    </td>
+
+  {% endif %}
+
+
+

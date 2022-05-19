@@ -1,0 +1,34 @@
+{# cell_pivot_balances_partner.html #}
+
+{% load static %}
+
+<td 
+  {% if extra_class and not is_input_flag %}
+    {# if id_input_flag extra_class will be later #}
+    class="{{ extra_class }}"
+  {% endif %}
+  {% if show_shadow_flag %}
+    shadow_id="{{ shadow_id }}"
+    field_var="{{ var_name }}"
+  {% endif %}
+>
+  {% if is_pensil_flag %}
+
+    <a 
+      class="is-pensil" 
+      href="#" 
+      title="Edit"
+      btn_tab_class="partners_balance"
+      btn_tab_model="transaction"
+      btn_row_id="0"
+      btn_hot_transaction="0"
+    >
+      &#9998;
+    </a>
+
+  {% else %}
+    {{ val|truncatechars:20 }}
+  {% endif %}
+</td>
+
+

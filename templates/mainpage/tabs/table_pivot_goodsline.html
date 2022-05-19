@@ -1,0 +1,41 @@
+{# table_pivot_goodsline.html #}
+
+{% load static %}
+
+<table 
+  class="col-12 table text-nowrap
+    table-bordered table-hover table-resposive 
+  "
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+>
+  <thead>
+    <tr>
+      {% for header_name, header_width, header_class in headers_zip %}
+          <th 
+            {% if not header_width %}
+              hidden
+            {% endif %}
+            class="col-{{ header_width }} {{ header_class }}" 
+            scope="col"
+          >
+            {{ header_name }}
+          </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows_arr %}
+      {{ row }}
+    {% endfor %}
+    {{ dummy_row }}
+    {{ input_goodsline_row }}
+  </tbody>
+
+</table>
+
+
+
+

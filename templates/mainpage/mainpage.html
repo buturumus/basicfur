@@ -1,0 +1,138 @@
+{# mainpage.html #}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+   
+  <!-- bootstrap css -->            
+  {# 4.5.3 #}
+  <link 
+    rel="stylesheet"                
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+    crossorigin="anonymous"
+  >
+  {% comment %}
+  {# local #}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  {% endcomment %}
+
+  <!-- our own css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Font Awesome JS and css -->
+  <link rel="stylesheet" 
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
+    crossorigin="anonymous">
+  <script defer 
+    src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" 
+    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" 
+    crossorigin="anonymous">
+  </script>
+  <script defer 
+    src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" 
+    integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" 
+    crossorigin="anonymous">
+  </script>
+  {% comment %}
+  {% endcomment %}
+
+  <!-- jquery + ajax -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% comment %}
+  {# local #}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  {% endcomment %}
+  
+  <title>{{ brand }}</title>
+</head>
+
+<body>
+  <!-- mainpage's container -->
+  <div class="container-fluid"> 
+
+    {% include "mainpage/upperbar.html" %}
+    <div class="row" id="godown"></div>
+
+    <main>
+      {% if user.is_authenticated %}
+
+        <div class="row"> 
+            <div class="wrapper">
+            {# consts block #}
+            <span 
+              id="consts-block"
+              {% for const_pair in consts %}
+                {{ const_pair.0 }}="{{ const_pair.1 }}"
+              {% endfor %}
+              hidden
+            ></span>
+                    
+              {% include "mainpage/sidebar.html" %}
+              
+              <!-- Page Content (tabs and their substs.)  -->
+              <div id="tabs-n-substs" class="container-fluid"> {# id="content" #}
+
+                <div id="tabs-cont" class="row">
+                  <div class="col-md-12">
+                    <ul id="tab-headers-cont" class="nav nav-tabs" role="tablist">
+                      <!-- ... tab headers here -->
+                    </ul>
+                    <div id="tab-frames-cont" class="tab-content">
+                      <!-- ... tab frames here -->
+                    </div>
+                  </div>
+                </div><!-- / tabs-cont -->
+
+                <div id="yes-no-cont">
+                  {% include "mainpage/yesno.html" %}
+                </div> <!-- / #yes-no-cont -->
+
+                <script src="static/js/mainpage/mainpage.js"></script>
+                <script src="static/js/mainpage/tabs.js"></script>
+
+              <div> <!-- / #tabs-n-substs -->
+
+          </div> <!-- wrapper -->
+        </div> <!-- / row -->
+
+      {% endif %}
+    </main>
+
+  </div> <!-- / mainpage's container -->
+
+  <!-- bootstrap JavaScript Bundle with Popper -->
+  {# 4.5.3 #}
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
+    crossorigin="anonymous"
+  ></script>
+  {% comment %}
+  {# local #}
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  {% endcomment %}
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+      });
+    });
+  </script>
+  <script>
+    if ($("#upperBar").height() > $('#godown').height()) 
+      $('#godown').height($("#upperBar").height() + 5);
+    $("#upperBar").resize(function () {
+      $('#godown').height($("#upperBar").height() + 5);
+    });
+  </script>
+</body>
+
+</html>

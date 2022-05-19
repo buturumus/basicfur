@@ -1,0 +1,75 @@
+{# table_acc_sum_card.html #}
+
+{% load static %}
+
+<div class="scrollbarable">
+<table 
+  class="table text-nowrap 
+    table-striped table-bordered table-hover table-responsive-md tab-table
+  "
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+>
+  <thead>
+    <tr>
+      <td class="col-4 align-left border-0" colspan="4">
+        {{ acc_sum_card_acc_header }} {{ shown_book_acc }}
+      </td>
+      <td class="col-3 text-right border-0" colspan="3">
+        {{ acc_sum_card_start_bal_header }}
+      </td>
+      <td class="col-1 text-right border-0 font-weight-bold dk-prefix">
+        {{ shown_init_balance }}
+      </td>
+      <td class="col-1 align-right border-0">
+      </td>
+    </tr>
+    <tr>
+      {% for header_name, header_width, header_class  in headers_zip %}
+        <th 
+          class="col-{{ header_width }} {{header_class}}" 
+          scope="col"
+        >
+          {{ header_name }}
+        </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows_arr %}
+      {{ row }}
+    {% endfor %}
+    <tr>
+      <td class="col-4 text-right border-0" colspan="4">
+      </td>
+      <td class="col-1 text-right border-0 font-weight-bold">
+        {{ acc_sum_card_total }} 
+      </td>
+      <td class="col-1 text-right">
+        {{ shown_final_deb }}
+      </td>
+      <td class="col-1 text-right">
+        {{ shown_final_cred }}
+      </td>
+      <td class="col-2 text-right border-0" colspan="2">
+      </td>
+    </tr>
+    <tr>
+      <td class="col-4 text-right border-0" colspan="4">
+      </td>
+      <td class="col-1 text-right border-0">
+      </td>
+      <td class="col-2 text-center font-weight-bold" colspan="2">
+      </td>
+      <td 
+        class="col-2 text-left border-0 font-weight-bold dk-prefix" 
+        colspan="2"
+      >
+        {{ shown_final_balance }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

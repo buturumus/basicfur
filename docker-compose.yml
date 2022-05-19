@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:11
+    volumes:
+#     - ./postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+#   networks:
+#     - b3_net
+  web:
+    build: .
+#   command: python /code/manage.py runserver 0.0.0.0:8000
+    command: gunicorn basicfur_project.wsgi -b 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+#   networks:
+#     - b3_net
+        
+volumes:
+  postgres_data:
+
+#networks:
+#  b3_net:
+#    external:
+#      name: b3_net
+

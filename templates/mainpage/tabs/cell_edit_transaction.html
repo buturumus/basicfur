@@ -1,0 +1,60 @@
+{# cell_edit_transaction.html #}
+
+{% load static %}
+
+  {% if var_name|stringformat:"s" == 'date' %}
+
+    <input type="date" 
+      class="form-control docs-date{{ extra_class }}" 
+      name="date" autocomplete="off" 
+      value="{{ val }}"
+      field_var="date" 
+    >
+
+  {% elif 'load-dropdown' in extra_class %}
+
+    <select 
+      class="custom-select custom-select-sm{{ extra_class }}"
+      field_var="{{ var_name }}" 
+    >
+    {% if val %}
+        <option 
+          shadow_id="{{ shadow_id }}"
+          selected
+        >
+          {{ val }}
+        </option>
+      {% else %}
+        <option aria-disabled selected value
+        >
+        </option>
+      {% endif %}
+    </select>
+
+  {% elif is_input_flag %}
+
+    <input 
+      class="form-control input-text-field{{ extra_class }}" 
+      type="text" value="{{ val }}"
+      field_var="{{ var_name }}" 
+      {% if show_shadow_flag %}
+        shadow_id="{{ shadow_id }}"
+      {% endif %}
+    >
+
+  {% else %}
+
+    <span 
+      class="{{ extra_class }}"
+      field_var="{{ var_name }}" 
+      {% if show_shadow_flag %}
+        shadow_id="{{ shadow_id }}"
+      {% endif %}
+    >
+      {{ val }}
+    </span>
+
+  {% endif %}
+
+
+

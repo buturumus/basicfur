@@ -1,0 +1,117 @@
+{# frame_basetemplate.html #}
+
+{% load static %}
+
+{# <!-- tab's frame --> #}
+<div 
+  id="tab-frame-{{ tab_name }}"  {# must be set for bootstrap tab navigation #}
+  class="tab-frame tab-pane fade" 
+  role="tabpanel"
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  tab_name="{{ tab_name }}"
+  run_on_load="{{ run_on_load }}"
+>
+  <!-- common keys block -->
+  <p>
+    <div class="row">
+
+      {% block left_top_button %}
+        <div class="col text-left">
+          <button type="button" 
+            class="btn btn-primary refresh-btn"
+          >{{ btn_f5 }}</button>
+        </div>
+      {% endblock left_top_button %}
+
+      {% block central_top_button %}
+        <div class="col text-center">
+          <button type="button" 
+            class="btn btn-outline-primary"
+          >{{ btn_add }}</button>
+        </div>
+      {% endblock central_top_button %}
+
+      {% block right_top_button %}
+        <div class="col text-right">
+          <button type="button" 
+            class="btn btn-primary close-btn"
+          >{{ btn_close }}</button>
+        </div>
+      {% endblock right_top_button %}
+
+    </div>
+  </p>
+
+
+  <!-- tab frame's title, same as header -->
+  {% block tab_title %}
+    <h2 class="tab-frame-title">{{ tab_title }}</h2>
+  {% endblock tab_title %}
+
+  <!-- table part of tab -->
+  <div 
+    class="tab-table-cont ">
+  </div> 
+  {% comment %}
+    {% with template_name=tab_name|stringformat:'s' %}
+      {% include 'home/tabs/'|add:template_name|add:'_dyn.html' %}
+    {% endwith %}
+  {% endcomment %}
+
+
+  <!-- bottom keys block -->
+  <p>
+    <div class="row">
+      {% block bottom_left_button %}
+        {% if sub_id != 0  %}
+          <div class="col text-center">
+            <button 
+              type="button" 
+              class="btn btn-danger del-btn"
+            >{{ btn_delete }}</button>
+          </div>
+        {% endif %}
+      {% endblock bottom_left_button %}
+
+      {% block bottom_central_button %}
+      <div class="col text-center">
+          <button id="{{ tab_name }}-save-btn" type="button" class="btn btn-success">Добавить</button>
+      </div>
+      {% endblock bottom_central_button %}
+
+      {% block bottom_right_button %}
+        {% if tab_model == "transaction" %}
+            <div class="col text-center">
+              <button 
+                type="button" 
+                class="btn btn-success save-btn"
+              >{{ btn_save_close_tr }}</button>
+            </div>
+        {% else %}
+          <div class="col text-center">
+            <button 
+              type="button" 
+              class="btn btn-success save-btn"
+            >{{ btn_save_close }}</button>
+          </div>
+        {% endif %}
+      {% endblock bottom_right_button %}
+
+    </div>
+  </p>
+
+  {% block js %}
+  {% endblock js %}
+{% comment %}
+  {% with js_filename=tab_class|stringformat:'s' %}
+    <script id="test" src="{% static 'js/home/tabs/'|add:js_filename|add:'.js' %}"></script>
+  {% endwith %}
+    {% include 'home/tabs/template_del_yes_no.html' %}
+{% endcomment %}
+
+
+</div>
+{# <!-- / tab's frame --> #}
+

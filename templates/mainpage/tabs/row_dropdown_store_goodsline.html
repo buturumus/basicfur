@@ -1,0 +1,14 @@
+{# row_dropdown_store_goodsline.html #}
+
+{% load static %}
+
+<option
+  shadow_id="{{ shadow_id }}"
+  human_id="{{ human_id }}"
+  qty="{{ qty }}"
+>
+  {% for cell in cells_arr %}
+    {{ cell }}
+  {% endfor %}
+</option>
+

@@ -1,0 +1,47 @@
+{# frame_edit.html #}
+
+{% extends "mainpage/tabs/frame_basetemplate.html" %}
+{% load static %}
+
+{% block left_top_button %}
+  <h2 class="tab-body-title">
+    &nbsp;&nbsp;&nbsp;{{ tab_title }}
+  </h2>
+{% endblock left_top_button %}
+
+{% block central_top_button %}
+{% endblock central_top_button %}
+
+{% block right_top_button %}
+<div class="col text-right">
+  <button 
+    type="button" 
+    {# id="{{ tab_name }}-close-btn" #}
+    class="btn btn-primary close-btn"
+  >
+    {{ btn_close_no_save }} 
+  </button>
+</div>
+{% endblock right_top_button %}
+
+{% block tab_title %}
+{% endblock tab_title %}
+
+{% comment %}
+{% block bottom_left_button %}
+{% endblock bottom_left_button %}
+{% endcomment %}
+
+{% block bottom_central_button %}
+{% endblock bottom_central_button %}
+
+{% comment %}
+{% block bottom_right_button %}
+{% endblock bottom_right_button %}
+
+{% block js %}
+    <script src="{% static 'js/mainpage/tabs/bodie_edit.js' %}">
+    </script>
+{% endblock js %}
+{% endcomment %}
+

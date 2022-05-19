@@ -1,0 +1,17 @@
+{# row_std.html #}
+
+{% load static %}
+
+<tr 
+  {% if row_extra_class %}
+    class="{{ row_extra_class }}" {# table-sm row-id-able #}
+  {% endif %}
+  row_id="{{ row_id }}"
+  {% if hot_transaction %}
+    hot_transaction="{{ hot_transaction }}"
+  {% endif %}
+>
+  {% for cell in cells_arr %}
+    {{ cell }}
+  {% endfor %}
+</tr>

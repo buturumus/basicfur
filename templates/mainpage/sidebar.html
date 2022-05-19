@@ -1,0 +1,235 @@
+{# sidebar.html #}
+
+  <nav 
+    id="sidebar"
+    {# class="ml-0 pl-0 mr-0 pr-0" #}
+  >
+
+      <ul class="list-unstyled components">
+          <li>
+            <span><br></span>
+          </li>
+
+          <!-- datepickers -->
+          {% with '1 2' as one_two_seq %}
+           {% for picker_id in one_two_seq.split %}
+              <li>
+                <div class="row col-12 ml-0 pl-0 mr-0 pr-0">
+                  <div class="col-1 my-auto">
+                  </div>
+                  <div class="col-1 my-auto ml-0 pl-0 mr-0 pr-0 text-right">
+                    {% cycle sidebar_from_date sidebar_to_date %}
+                  </div>
+                  <div class="col-9 input-group">
+                    <input 
+                      type="date" 
+                      id="datepicker{{ picker_id }}" 
+                      class="form-control docs-date datepicker" 
+                      name="date" 
+                      {# placeholder="dd-mm-yyyy" #} 
+                      autocomplete="off"
+                    >
+                    <div class="col-1 my-auto text-secondary">
+                      <i class="fa fa-calendar" aria-hidden="true"></i> {# #}
+                      {# &#8629; return #}
+                    </div>
+                  </div>  <!-- / input-group -->
+                </div> <!-- / row col-12 -->
+              </li>
+            {% endfor %}
+          {% endwith %}
+          <!-- / datepickers -->
+
+          <li>
+            <div class="ml-0 pl-0 mr-4 pl-4">
+              <br>
+              <hr class="my-auto">
+              <br>
+            </div>
+          </li>
+
+          <!-- dropdowns -->
+          {% for dropdown_name, var_name in sidebar_dropdowns_zip %}
+
+            <li>
+              <div class="row 
+                ml-0 pl-0 input-group
+              ">
+                <div 
+                  class="col-2 my-auto"
+                >
+                  {{ dropdown_name }}
+                </div>
+                {# dropdown field or search field on it's place #}
+                <div 
+                  class="
+                    col-8 mr-0 pr-0 
+                    sidebar-dropdown-itself
+                  "
+                >
+                  <select 
+                    class="custom-select custom-select-sm 
+                      sidebar-dropdown-select
+                      load-dropdown
+                    "
+                    field_var="{{ var_name }}"
+                  >
+                    <option aria-disabled selected value
+                    >
+                    </option>
+
+                    {% comment %}
+                    {% for dropdown_item in dropdown_items %}
+                      <option 
+                        shadow_id={{ dropdown_item.id }}
+                      >
+                        {{ dropdown_item }}
+                      </option>
+                    {% endfor %}
+                    {% endcomment %}
+
+                  </select>
+                </div>
+                {# search field #}
+                <div 
+                  class="
+                    col-8 
+                    mr-0 pr-0 
+                    sidebar-dropdown-search
+                  "
+                  hidden
+                >
+                  <input 
+                    type="text"
+                    class="
+                      col-9
+                      form-control-sm
+                      filter-dropdown-input
+                    "
+                  >
+                  </input>
+                  <button 
+                    type="button" 
+                    class="btn 
+                      btn-sm
+                      btn-outline-secondary 
+                      col-2 
+                      filter-dropdown-btn
+                    " 
+                  >
+                    &#8629; {# return #}
+                  </button>
+                </div>
+                {# / dropdown field or search field on it's place #}
+                <div>
+                  <button 
+                    type="button" 
+                    class="btn btn-sm
+                      btn-outline-secondary 
+                      reset-dropdown-btn
+                    " 
+                    dropdown_filtered="0"
+                    search_shown="0"
+                  >
+                    &#128270; {# magn.glass ; &#8981; #}
+                    {# &#215; x_sign #}
+                  </button>
+                </div>
+              </div>
+            </li>
+
+          {% endfor %}
+          <!-- / dropdowns -->
+          <!-- simple search fields -->
+          {% for input_name, var_name in sidebar_inputs_zip %}
+            <li>
+              <div class="row 
+                ml-0 pl-0 input-group
+              ">
+                <div 
+                  class="col-2 my-auto"
+                >
+                  {{ input_name }}
+                </div>
+                <div 
+                  class="
+                    col-10 
+                    mr-0 pr-0 
+                  "
+                >
+                  <input 
+                    type="text"
+                    class="
+                      col-10
+                      form-control-sm
+                      sidebar-simple-input
+                    "
+                    field_var="{{ var_name }}"
+                  >
+                  </input>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+          <!-- / simple search field -->
+
+          <li>
+            <div class="ml-0 pl-0 mr-4 pl-4">
+              <br>
+              <hr class="my-auto">
+              <br>
+            </div>
+          </li>
+
+          <!-- sidebar menus -->
+          {% for level0_item, level1_items in sidebar_collmenus %}
+            <li>
+              <a 
+                href="#collapse{{ level0_item.0 }}" 
+                data-toggle="collapse" 
+                aria-expanded="false" 
+                class="dropdown-toggle"
+              >
+                {{ level0_item.1 }}
+              </a>
+                <ul 
+                  id="collapse{{ level0_item.0 }}"
+                  class="collapse list-unstyled" 
+                >
+                  {% for level1_item in level1_items %}
+                    <li>
+                      <a 
+                        href="#" 
+                        {% if level1_item.4 %}
+                          id="{{ level1_item.4 }}"
+                        {% endif %}
+                        class="sidebar-menu-item"
+                        tab_class="{{ level1_item.2 }}"
+                        tab_model="{{ level1_item.1 }}"
+                        hot_transaction="{{ level1_item.3 }}"
+                      >
+                        {{ level1_item.0 }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            </li>
+          {% endfor %}
+          <!-- / sidebar menus -->
+      </ul>
+      
+      {% comment %}
+      {% if user.username == 'b3admin' %}
+        <a 
+          href="#" 
+          id="test_link" 
+        >
+          test
+        </a>
+      {% endif %}
+      {% endcomment %}
+
+  </nav>
+
+  <script src="static/js/mainpage/sidebar.js"></script>
+

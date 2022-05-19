@@ -1,0 +1,219 @@
+{# row_edit_shipping.html #}
+
+{% load static %}
+
+<tr 
+  {% if row_extra_class %}
+    class="{{ row_extra_class }}" {# table-sm row-id-able #}
+  {% endif %}
+  row_id="{{ row_id }}"
+  {% if hot_transaction %}
+    hot_transaction="{{ hot_transaction }}"
+  {% endif %}
+>
+
+  {# const for js #}
+  {% if shipping_hot_id %}
+    <span
+      shipping_hot_id="{{ shipping_hot_id }}"
+      hidden
+    ></span>
+  {% endif %}
+
+  <!-- line 1 -->
+  <tr class="col-12"> 
+
+      {# human_id #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Код:
+      </th>
+      <td
+        class="col-2 align-middle"
+      >
+        {{ cells_arr.0 }}
+      </td>
+
+      {# hot_transaction #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Тип:
+      </th>
+      <td
+        class="col-2 align-middle"
+      >
+        {{ cells_arr.3 }}
+      </td>
+
+      {# created when and whom #}
+      {% if tab_class != 'new' %} 
+      <td class="col-6 text-right">
+        &#9998;: {{ cells_arr.10 }} ({{ cells_arr.9 }} GMT )
+      </td>
+      {% endif %} 
+    
+  </tr>
+
+  <!-- line 2 -->
+  <tr class="col-12"> 
+
+      {# date #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Дата:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.1 }}
+      </td>
+
+      {# partner #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Кагент:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.2 }}
+      </td>
+
+      {# empty #}
+      <td class="col-6">
+      </td>
+  </tr>
+
+  <!-- line 3 -->
+  <tr class="col-12"> 
+
+      {# money #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Сумма:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.4 }}
+      </td>
+
+  {% comment %}
+      <!-- extra field for shipping transaction only -->
+      <span 
+        {# id="{{ tab_name }}-input-cost_money" #}
+        {# class="{{ tab_name }}-input" #}
+        hidden
+      >
+        0
+      </span>
+        {{ row_id }}      
+  {% endcomment %}
+
+      {# comment #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Прим.:
+      </th>
+      <td class="col-8 align-middle" colspan="2">
+        {{ cells_arr.5 }}
+      </td>
+
+  </tr>
+
+  <!-- line 4 -->
+  <tr class="col-12"> 
+
+    <td colspan="5">
+      <button 
+        type="button" 
+        class="btn btn-sm btn-outline-secondary" 
+        data-toggle="collapse" data-target=".multicollapse"
+      >
+        О проводке...
+      </button>
+    </td>
+  </tr>
+
+  {# fixed set of 3 book-acc.pairs for shipping hot-transaction #}
+    {% for acc_names_pair, acc_shadow_ids_pair in shipping_pairs_zip %}
+
+      <tr 
+        id="{{ tab_name }}-collapseme" 
+        class="collapse out multicollapse book-acc-set"
+      >
+        {# deb_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетДебет:
+        </th>
+        <td class="col-2 align-middle">
+          <select 
+            class="custom-select custom-select-sm save-shadow-special never-empty"
+            field_var="deb-account" 
+          >
+            <option 
+              shadow_id="{{ acc_shadow_ids_pair.0 }}"
+              selected
+            >
+              {{ acc_names_pair.0 }}
+            </option>
+          </select>
+        </td>
+        {# cred_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетКредит:
+        </th>
+        <td class="col-2 align-middle">
+          <select 
+            class="custom-select custom-select-sm save-shadow-special never-empty"
+            field_var="cred-account" 
+          >
+            <option 
+              shadow_id="{{ acc_shadow_ids_pair.1 }}"
+              selected
+            >
+              {{ acc_names_pair.1 }}
+            </option>
+          </select>
+        </td>
+        <td class="col-6 text-right">
+        </td>
+      </tr>
+
+    {% endfor %}
+
+  <tr 
+    id="{{ tab_name }}-collapse-rows-tail"
+    class="col-12 collapse out multicollapse"
+  > 
+  </tr>
+
+  {# multitransaction stuff for creation (and non-has-goodslines-move) case #} 
+  {% if tab_class == 'new' and has_goodslines|stringformat:"s" == "0" %} 
+    <tr 
+      id="{{ tab_name }}-collapseme"
+      class="col-12 collapse out multicollapse" 
+    >
+      <td colspan=5 class="text-right">
+        <button 
+          type="button" 
+          id="add-extra-transaction" 
+          class="btn btn-sm btn-outline-secondary"
+        >
+          &#8592; Добав.счета
+        </button>
+      </td>
+    </tr>
+  {% endif %} 
+
+  <!-- has_goodslines_move flag and following stuff -->
+  <span
+    hidden
+    class="col-2 align-middle{{ row.1.8.3 }}"
+    field_var="{{ row.1.8.6 }}" 
+  >
+    {{ row.1.8.0  }}
+  </span>
+
+  <tr class="col-12"> 
+  <td colspan=5 class="text-right">
+  <!-- line ff -->
+  {% if has_goodslines|stringformat:"s" == "1" %}
+    <div 
+      {# id="{{ tab_name }}-goodslines-cont" #}
+      class="container-fluid goodslines-cont"
+    >
+    </div>
+  {% endif %}
+  </td>
+  </tr>
+
+</tr>

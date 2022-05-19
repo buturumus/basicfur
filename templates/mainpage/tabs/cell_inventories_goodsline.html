@@ -1,0 +1,36 @@
+{# cell_inventories_goodsline.html #}
+
+{% load static %}
+
+<td 
+  {% if extra_class and not is_input_flag %}
+    {# if id_input_flag extra_class will be later #}
+    class="{{ extra_class }}"
+  {% endif %}
+  {% if show_shadow_flag %}
+    shadow_id="{{ shadow_id }}"
+    field_var="{{ var_name }}"
+  {% endif %}
+>
+  {% if is_pensil_flag %}
+    <a 
+      class="is-pensil" 
+      href="#" 
+      title="Edit"
+      btn_tab_class="material_history"
+      btn_tab_model="goodsline"
+      btn_row_id="0"
+      btn_hot_transaction="1" {# =empty transaction #}
+      {% comment %}
+      {% endcomment %}
+    >
+      &#9998;
+    </a>
+  {% elif is_short_val_flag %}
+    {{ val.short_name }}
+  {% else %}
+    {{ val|truncatechars:20 }}
+  {% endif %}
+</td>
+
+

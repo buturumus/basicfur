@@ -1,0 +1,64 @@
+<div class="row">
+  <nav id="upperBar" class="navbar fixed-top navbar-expand-md navbar-dark mb-4 py-1">
+    {% if user.is_authenticated %}
+      <button type="button" id="sidebarCollapse" class="btn btn-light">
+        <i class="fas fa-angle-double-down"></i> 
+        {# &#128071; #}
+      </button>
+    {% endif %}
+    <a 
+      id="toggle-sidebar" 
+      class="navbar-brand ml-4" 
+      href="#"
+    >
+      {{ brand }}
+    </a>
+    <button class="navbar-toggler" type = "button" data-toggle = "collapse"
+    data-target = "#navbarCollapse" aria-controls = "navbarCollapse"
+    aria-expanded = "false" aria-lebel = "Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+
+      {% if user.is_authenticated %}
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" id="userMenu"
+            data-toggle = "dropdown" aria-haspopup = "true"
+            aria-expanded = "false">
+            {{ user.username }}
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-lebelledby="userMeny">
+            {% comment %}
+            <a class="dropdown-item" href="{% url 'password_change' %}">
+              Change password
+            </a>
+            {% endcomment %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'logout' %}">
+              Log out
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      {% else %}
+      <form class="form-inline ml-auto" >
+        <a class="btn btn-secondary" href="{% url 'login' %}">
+          Log in
+        </a>
+        {% comment %}
+        <a class="btn btn-primary ml-2" href="{% url 'signup' %}">
+          Sign up
+        </a> 
+        {% endcomment %}
+      </form>
+      {% endif %}
+
+    </div>
+  </nav> <!-- / upper navbar -->
+</div> <!-- / row -->
+

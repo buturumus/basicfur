@@ -1,0 +1,34 @@
+{# cell_pivot_goodsline.html #}
+
+{% load static %}
+
+  <td 
+    {% if var_name == 'purchase_human_id' %}
+      hidden
+    {% endif %}
+    {% if extra_class and not is_input_flag %}
+      {# if id_input_flag then extra_class will be later #}
+      class="{{ extra_class }}"
+    {% endif %}
+    {% if show_shadow_flag %}
+      shadow_id="{{ shadow_id }}"
+    {% endif %}
+    field_var="{{ var_name }}" 
+  >
+
+    {% if is_pensil_flag %}
+      {# actually there's not pensil but x here #}
+      <a class="is-pensil" href="#" title="Del">
+        &#10006;
+      </a>
+      
+    {% elif is_short_val_flag %}
+      {{ val }}
+
+    {% else %}
+      {{ val|truncatechars:20 }}
+
+    {% endif %}
+
+  </td>
+

@@ -1,0 +1,375 @@
+{# table_edit_transaction.html #}
+
+{% load static %}
+
+<table 
+  class="table text-nowrap table-bordered table-hover table-responsive-md tab-table"
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+>
+  <tbody>
+    {% for row in rows_arr %}
+      {{ row }}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% comment %}
+
+<span 
+  hidden
+></span>
+
+<div 
+  class="container-fluid"
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+  {#  row_id="{{ row_id }}" #}
+>
+<table class="table table-bordered table-hover table-resposive">
+  <tbody>
+
+    {% for row in rows_arr %}
+      <span
+        row_id="{{ row.0.0 }}"
+      ></span>
+
+        now use direct 'row.1.X.Y' values instead of 'for i in row.1: i.Y'
+        where X = (human_id, date, partner, hot_transaction, ... )
+        and Y = ( cell_val, shadow_val, width, extra_classes, ... ) 
+
+      <!-- line 1 -->
+      <tr class="col-12"> 
+
+          {# human_id #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Код:
+          </th>
+          {% if row_id != '0'  %}
+            <td 
+              class="col-2 align-middle{{ row.1.0.3 }}"
+              field_var="{{ row.1.0.6 }}" 
+              shadow_id="{{ row.1.0.1 }}"
+              {# headers_vars_defaults.5.0 #}
+            >
+                  {{ row.1.0.0  }}
+            </td>
+          {% else %}
+            <td 
+              class="col-2 align-middle{{ row.1.0.3 }}"
+              field_var="{{ row.1.0.6 }}" 
+              {# headers_vars_defaults.5.0 #}
+            >
+                  {{ row.1.0.0  }}
+            </td>
+          {% endif %}
+
+          {# hot_transaction #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Тип:
+          </th>
+          <td 
+            class="col-2 align-middle{{ row.1.3.3 }}"
+            field_var="{{ row.1.3.6 }}" 
+            shadow_id="{{ row.1.3.1 }}"
+          >
+                  {{ row.1.3.0  }}
+          </td>
+
+          {# created when and whom #}
+          {% if row_id != '0' %}
+            <td class="col-6 text-right">
+              &#9998;: {{ row.1.10.0  }} ({{ row.1.9.0  }} GMT)
+            </td>
+          {% endif %}
+
+      </tr>
+
+      <!-- line 2 -->
+      <tr class="col-12"> 
+
+          {# date #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Дата:
+          </th>
+          <td class="col-2 align-middle">
+            <input type="date" 
+              {# id="{{ tab_name }}-input-date" #}
+              class="form-control docs-date 
+                {{ tab_name }}-input{{ row.1.1.3 }}" 
+              name="date" autocomplete="off" 
+              value="{{ row.1.1.0 }}"
+              field_var="{{ row.1.1.6 }}" 
+            >
+          </td>
+
+          {# partner #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Кагент:
+          </th>
+          <td class="col-2 align-middle">
+            <select 
+              {# id="{{ tab_name }}-input-partner" #}
+              class="custom-select custom-select-sm 
+                {{ tab_name }}-input{{ row.1.2.3 }}"
+              field_var="{{ row.1.2.6 }}" 
+            >
+              {% if row.1.2.0 %}
+                <option 
+                  {#id_to_backend={{ headers_vars_defaults.4.2 #}
+                  shadow_id="{{ row.1.2.1 }}"
+                  selected
+                >
+                  {{ row.1.2.0 }}
+                </option>
+              {% else %}
+                <option aria-disabled selected value
+                >
+                </option>
+              {% endif %}
+
+            </select>
+          </td>
+
+          {# empty #}
+          <td class="col-6">
+          </td>
+      </tr>
+
+      <!-- line 3 -->
+      <tr class="col-12"> 
+
+          {# money #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Сумма:
+          </th>
+          <td class="col-2 align-middle">
+            <div>
+              <input 
+                {#class="{{ tab_name }}-input  #}
+                {# id="{{ tab_name }}-input-money" #}
+                class="form-control{{ row.1.4.3 }}"  
+                type="text" 
+                value="{{ row.1.4.0 }}"
+                field_var="{{ row.1.4.6 }}" 
+              >
+            </div>
+          </td>
+          <!-- extra field for shipping transaction only -->
+          <span 
+            {# id="{{ tab_name }}-input-cost_money" #}
+            {# class="{{ tab_name }}-input" #}
+            hidden
+          >
+            0
+          </span>
+
+          {# comment #}
+          <th class="col-1 align-middle text-right" scope="row">
+            Прим.:
+          </th>
+          <td class="col-8 align-middle" colspan="2">
+            <div>
+              <input 
+                {# id="{{ tab_name }}-input-comment" #}
+                class="form-control 
+                  {# {{ tab_name }}-input #}
+                  input-val-optional{{ row.1.5.3 }}"  
+                type="text" value="{{ row.1.5.0}}"
+                field_var="{{ row.1.5.6 }}" 
+              >
+            </div>
+          </td>
+
+      </tr>
+
+      <!-- line 4 -->
+      <tr class="col-12"> 
+
+        <td colspan="5">
+          <button 
+            type="button" 
+            class="btn btn-sm btn-outline-secondary" 
+            data-toggle="collapse" data-target=".multicollapse"
+          >
+            О проводке...
+          </button>
+        </td>
+      </tr>
+
+      {# fixed set of 3 book-acc.pairs for shipping hot-transaction #}
+      {% if row_id == "0" and row.1.3.1|stringformat:"s" == shipping_hot_id|stringformat:"s" %} 
+
+        {% for acc_pair, acc_id in shipping_book_acc_ids %}
+
+          <tr 
+            id="{{ tab_name }}-collapseme" 
+            class="collapse out multicollapse book-acc-set"
+          >
+            {# deb_account #}
+            <th class="col-1 align-middle text-right" scope="row">
+              СчетДебет:
+            </th>
+            <td class="col-2 align-middle">
+              <select 
+                class="custom-select custom-select-sm 
+                  input-deb_account save-shadow-special load-dropdown
+                "
+                field_var="{{ row.1.6.6 }}" 
+              >
+                <option 
+                  shadow_id="{{ acc_id.0 }}"
+                  selected
+                >
+                  {{ acc_pair.0 }}
+                </option>
+              </select>
+            </td>
+            {# cred_account #}
+            <th class="col-1 align-middle text-right" scope="row">
+              СчетКредит:
+            </th>
+            <td class="col-2 align-middle">
+              <div>
+                <select 
+                  class="custom-select custom-select-sm 
+                    input-cred_account save-shadow-special load-dropdown
+                  "
+                  field_var="{{ row.1.7.6 }}" 
+                >
+                  <option
+                    shadow_id="{{ acc_id.1 }}"
+                    selected
+                  >
+                    {{ acc_pair.1 }}
+                  </option>
+                </select>
+              </div>
+            </td>
+            <td class="col-6 text-right">
+            </td>
+          </tr>
+
+        {% endfor %}
+
+      {# or dyn.pre-filled set of book-acc.pairs for others #}
+      {% else%} 
+
+          <tr 
+            id="{{ tab_name }}-collapseme" 
+            class="collapse out multicollapse book-acc-set"
+          >
+            {# deb_account #}
+            <th class="col-1 align-middle text-right" scope="row">
+              СчетДебет:
+            </th>
+            <td class="col-2 align-middle">
+              <select 
+                class="custom-select custom-select-sm 
+                  input-deb_account{{ row.1.6.3 }}" {# extra_classes #}
+                field_var="{{ row.1.6.6 }}" 
+              >
+                {% if row.1.6.0 %}  {# cell_val #}
+                  <option 
+                    shadow_id="{{ row.1.6.1 }}"
+                    selected
+                  >
+                    {{ row.1.6.0 }} {# cell_val #}
+                  </option>
+                {% else %}
+                  <option aria-disabled selected value
+                  >
+                  </option>
+                {% endif %}
+              </select>
+            </td>
+
+            {# cred_account #}
+            <th class="col-1 align-middle text-right" scope="row">
+              СчетКредит:
+            </th>
+            <td class="col-2 align-middle">
+              <div>
+                <select 
+                  class="custom-select custom-select-sm
+                    input-cred_account{{ row.1.7.3 }}"  {# extra_classes #}
+                  field_var="{{ row.1.7.6 }}" 
+                >
+                  {% if row.1.7.0 %} {# cell_val #}
+                    <option
+                      shadow_id="{{ row.1.7.1 }}"
+                      selected
+                    >
+                      {{ row.1.7.0 }}  {# cell_val #} 
+                    </option>
+                  {% else %}
+                    <option aria-disabled selected value
+                    >
+                    </option>
+                  {% endif %}
+                </select>
+              </div>
+            </td>
+            <td class="col-6 text-right">
+            </td>
+        </tr>
+
+      {% endif %} 
+
+      <tr 
+        id="{{ tab_name }}-collapse-rows-tail"
+        class="col-12 collapse out multicollapse"
+      > 
+      </tr>
+
+      {# multitransaction stuff for creation (and non-has-goodslines-move) case #}
+      {% if row_id == '0' and row.1.8.0|stringformat:"s" != "1" %} 
+        <tr 
+          id="{{ tab_name }}-collapseme"
+          class="col-12 collapse out multicollapse" 
+        >
+          <td colspan=5 class="text-right">
+            <button 
+              type="button" 
+              id="add-extra-transaction" 
+              class="btn btn-sm btn-outline-secondary"
+            >
+              &#8592; Добав.проводку
+            </button>
+          </td>
+        </tr>
+      {% endif %} 
+
+      <!-- has_goodslines_move flag and following stuff -->
+      <span
+        hidden
+        class="col-2 align-middle{{ row.1.8.3 }}"
+        field_var="{{ row.1.8.6 }}" 
+      >
+        {{ row.1.8.0  }}
+      </span>
+
+      <tr class="col-12"> 
+      <td colspan=5 class="text-right">
+      <!-- line ff -->
+      {% if row.1.8.0|stringformat:"s" == "1" %}
+        <div 
+          {# id="{{ tab_name }}-goodslines-cont" #}
+          class="container-fluid goodslines-cont"
+        >
+        </div>
+      {% endif %}
+      </td>
+      </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+</div> <!-- / container-fluid -->
+
+
+{% endcomment %}

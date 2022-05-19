@@ -1,0 +1,25 @@
+{# template_header.html #}
+
+{% load static %}
+
+<li 
+  id="tab-header-cont-{{ tab_name }}" 
+  tab_action="{{ tab_action }}"
+  class="nav-item tab-header"
+>
+  <a 
+    href="#tab-frame-{{ tab_name }}"
+    id="tab-header-link-{{ tab_name }}"  {# must be set for tab.show() #}
+    class="nav-link tab-header-link" 
+    role="tab" data-toggle="tab" 
+  >
+      <span 
+       id="tab-header-title-{{ tab_name }}" 
+        class="tab-header-title"
+      >
+          {{ tab_title }}
+      </span>
+  </a>
+</li>
+
+

@@ -1,0 +1,14 @@
+{# dropdown_list.html #}
+
+{% load static %}
+
+<span
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+></span>
+{% for row in rows_arr %}
+    {{ row }}
+{% endfor %}
+

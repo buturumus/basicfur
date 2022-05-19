@@ -1,0 +1,25 @@
+{# table_dropdown_std.html #}
+
+{% load static %}
+
+{% comment %}
+{% endcomment %}
+<span 
+  tab_part="{{ tab_part }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+  hidden
+></span>
+
+{% for row in table_context_list %}
+  {% for cell in row.1 %}
+    <option 
+      shadow_id="{{ cell.1 }}"
+      {# id_to_backend="{{ id_to_backend }}" #}
+    >
+      {{ cell.0 }}
+    </option>
+  {% endfor %}
+{% endfor %}
+

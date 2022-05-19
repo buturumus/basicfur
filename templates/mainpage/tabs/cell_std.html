@@ -1,0 +1,58 @@
+{# cell_std.html #}
+
+{% load static %}
+
+<td 
+  {% if extra_class and not is_input_flag %}
+    {# if id_input_flag extra_class will be later #}
+    class="{{ extra_class }}"
+  {% endif %}
+  {% if show_shadow_flag %}
+    shadow_id="{{ shadow_id }}"
+  {% endif %}
+>
+  {% if 'load-dropdown' in extra_class %}
+
+    <select 
+      class="custom-select custom-select-sm{{ extra_class }}"
+      field_var="{{ var_name }}" 
+    >
+    {% if val %}
+        <option 
+          shadow_id="{{ shadow_id }}"
+          selected
+        >
+          {{ val }}
+        </option>
+      {% else %}
+        <option aria-disabled selected value
+        >
+        </option>
+      {% endif %}
+    </select>
+
+  {% elif is_input_flag %}
+
+    <input 
+      class="form-control input-text-field{{ extra_class }}" 
+      type="text" value="{{ val }}"
+      field_var="{{ var_name }}" 
+      {% if show_shadow_flag %}
+        shadow_id="{{ shadow_id }}"
+      {% endif %}
+    >
+
+  {% elif is_pensil_flag %}
+
+    <a class="is-pensil" href="#" title="Edit">
+    {{ val }}
+      &#9998;
+    </a>
+  {% elif is_short_val_flag %}
+    {{ val.short_name }}
+  {% else %}
+  {{ val|truncatechars:20 }}
+  {% endif %}
+</td>
+
+

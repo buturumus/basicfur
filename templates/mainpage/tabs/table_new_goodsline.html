@@ -1,0 +1,9 @@
+{# table_new_goodsline.html #}
+
+{% load static %}
+
+{# no table/tbody tags here, it's only an empty row container #}
+{% for row in rows_arr %}
+  {{ row }}
+{% endfor %}
+

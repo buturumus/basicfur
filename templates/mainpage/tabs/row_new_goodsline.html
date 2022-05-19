@@ -1,0 +1,30 @@
+{# row_new_goodsline.html #}
+
+{% load static %}
+
+<!-- upper divider -->
+<tr 
+  class="col-12
+    goodslines-div-row
+  "
+>
+  <td class="text-center h5" colspan="12">{{ subtitle_add_goodsline }}</td> 
+</tr>
+
+<!-- inputs row -->
+<tr 
+  class="col-12 table-sm
+    goodslines-inputs-row
+  "
+>
+  {% for cell in cells_arr %}
+    {{ cell }}
+  {% endfor %}
+</tr>
+
+<!-- bottom divider -->
+<div class="row">
+  <div class="col">
+    &nbsp;
+  </div>
+</div>

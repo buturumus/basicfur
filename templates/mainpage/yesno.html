@@ -1,0 +1,61 @@
+{# yesno.html #}
+
+{% load static %}
+
+<p>
+  <div class="row">
+    <div class="col">
+      <p><br></p>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <p 
+        id="yes-no-alert-msg"
+        class="lead"
+      >
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p><br></p>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col">
+      <p class="lead">
+        {{ yesno_sure_question }} 
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p><br></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3 text-left">
+    </div>
+
+    <div class="col-3 text-center">
+      <button id="no-button" type="button" class="btn btn-danger btn-block">{{ yesno_no_answer }}</button>
+    </div>
+
+    <div class="col-3 text-center">
+      <button id="yes-button" type="button" class="btn btn-success btn-block">{{ yesno_yes_answer }}</button>
+    </div>
+
+    <div class="col-3 text-right">
+    </div>
+  </div>
+</p>
+
+{% comment %}
+<script 
+  src="{% static 'js/mainpage/yesno.js' %}"
+>
+</script>
+{% endcomment %}
+

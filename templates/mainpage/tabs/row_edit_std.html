@@ -1,0 +1,25 @@
+{# row_edit_std.html #}
+
+{% load static %}
+
+<tr 
+  {% if row_extra_class %}
+    class="{{ row_extra_class }}" {# table-sm row-id-able #}
+  {% endif %}
+  row_id="{{ row_id }}"
+>
+  {% for header_title, cell in headers_cells_zip %}
+    <tr>
+      <th class="align-middle col-4" scope="row">
+        {{ header_title }}
+      </th>
+      <!-- cell begin -->
+      <td 
+      >
+        {{ cell }}
+      </td>
+      <!-- cell end -->
+    </tr>
+  {% endfor %}
+</tr>
+

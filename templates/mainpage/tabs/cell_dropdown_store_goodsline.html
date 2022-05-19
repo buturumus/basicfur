@@ -1,0 +1,16 @@
+{# cell_dropdown_store_goodsline.html #}
+
+{% load static %}
+
+{% if var_name == 'qty' %}
+  [{{ val }}{{ delim1 }}
+{% elif var_name == 'price' %}
+  {{ val }} :
+{% elif var_name == 'partner' %}
+  ({{ val }})
+{% elif var_name == 'human_id' %}
+  #{{ val }}]
+{% else %}
+  {{ val }}
+{% endif %}
+

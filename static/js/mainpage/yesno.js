@@ -1,0 +1,4 @@
+// yesno.js
+
+'use strict';
+

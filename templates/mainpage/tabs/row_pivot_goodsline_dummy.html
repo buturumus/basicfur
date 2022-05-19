@@ -1,0 +1,16 @@
+{# row_pivot_goodsline_dummy.html #}
+
+{% load static %}
+
+<tr 
+  hidden
+  class="
+    table-sm row-id-able
+    goodslines-dummy-row
+  " 
+  row_id="0"
+>
+  {% for cell in cells_arr %}
+    {{ cell }}
+  {% endfor %}
+</tr>

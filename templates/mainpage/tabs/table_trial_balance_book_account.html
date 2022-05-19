@@ -1,0 +1,80 @@
+{# table_trial_balance_book_account.html #}
+
+{% load static %}
+
+<table 
+  class="table text-nowrap 
+    table-striped table-bordered table-hover table-responsive-md tab-table
+  "
+  tab_action="{{ tab_action }}"
+  tab_class="{{ tab_class }}"
+  tab_model="{{ tab_model }}"
+  run_on_load="{{ run_on_load }}"
+>
+  <thead>
+    <tr>
+      <td class="col-1 text-left border-0" colspan="12">
+        {{ date_range_name }} {{ start_date }} - {{ end_date }}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-3 align-left" >
+      </td>
+      <td class="col-1 text-center font-weight-bold" colspan="2">
+        {{ balance_before_name }}
+      </td>
+      <td class="text-center font-weight-bold" colspan="2">
+        {{ balance_during_name }}
+      </td>
+      <td class="col-1 text-center font-weight-bold" colspan="2">
+        {{ balance_after_name }}
+      </td>
+      <td class="col-1 align-right" >
+      </td>
+    </tr>
+    <tr>
+      {% for header_name, header_width, header_class  in headers_zip %}
+        <th 
+          class="col-{{ header_width }} {{header_class}}" 
+          scope="col"
+        >
+          {{ header_name }}
+        </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows_arr %}
+      {{ row }}
+    {% endfor %}
+    {# bottom(total's) row #}
+    <tr class="font-weight-bold">
+      <td class="text-right">
+        {{ total_name }}
+      </td>
+      <td class="text-right">
+        {{ deb_total_before }}
+      </td>
+      <td class="text-right">
+        {{ cred_total_before }}
+      </td>
+      <td class="text-right">
+        {{ deb_total_during }}
+      </td>
+      <td class="text-right">
+        {{ cred_total_during }}
+      </td>
+      <td class="text-right">
+        {{ deb_total_to_date }}
+      </td>
+      <td class="text-right">
+        {{ cred_total_to_date }}
+      </td>
+      <td class="text-right">
+      </td>
+    </tr>
+    {# / bottom(total's) row #}
+  </tbody>
+</table>
+
+

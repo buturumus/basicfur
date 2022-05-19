@@ -1,0 +1,258 @@
+{# row_edit_killed_transaction.html #}
+
+{% load static %}
+
+<tr 
+  {% if row_extra_class %}
+    class="{{ row_extra_class }}" {# table-sm row-id-able #}
+  {% endif %}
+  row_id="{{ row_id }}"
+  {% if hot_transaction %}
+    hot_transaction="{{ hot_transaction }}"
+  {% endif %}
+>
+
+  <!-- line 1 -->
+  <tr class="col-12"> 
+
+      {# human_id #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Код:
+      </th>
+      <td
+        class="col-2 align-middle"
+      >
+        {{ cells_arr.0 }}
+      </td>
+
+      {# hot_transaction #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Тип:
+      </th>
+      <td
+        class="col-2 align-middle"
+      >
+        {{ cells_arr.3 }}
+      </td>
+
+      {# created when and whom by #}
+      {# killed when and whom by #}
+      <td class="text-right" 
+        colspan="3"
+      >
+        &#9998;: {{ cells_arr.10 }} ({{ cells_arr.9 }} GMT )
+        &#10006;: {{ cells_arr.12 }} ({{ cells_arr.11 }} GMT )
+      </td>
+    
+  </tr>
+
+  <!-- line 2 -->
+  <tr class="col-12"> 
+
+      {# date #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Дата:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.1 }}
+      </td>
+
+      {# partner #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Кагент:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.2 }}
+      </td>
+
+      {% if is_employees_action|stringformat:"s" == '1' %} 
+        {# employee #}
+        <th class="col-1 align-middle text-right" scope="row">
+          Сотр.:
+        </th>
+        <td class="col-2 align-middle">
+          {{ cells_arr.13 }}
+        </td>
+
+        {# empty #}
+        <td 
+          colspan="3"
+        >
+        </td>
+
+      {% else %}
+
+          {# empty #}
+          <td 
+          colspan="6"
+        >
+        </td>
+
+      {% endif %}
+  </tr>
+
+  <!-- line 3 -->
+  <tr class="col-12"> 
+
+      {# money #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Сумма:
+      </th>
+      <td class="col-2 align-middle">
+        {{ cells_arr.4 }}
+      </td>
+
+      {# comment #}
+      <th class="col-1 align-middle text-right" scope="row">
+        Прим.:
+      </th>
+      <td class="align-middle" 
+        colspan="6"
+      >
+        {{ cells_arr.5 }}
+      </td>
+
+  </tr>
+
+  <!-- line 4 -->
+  <tr class="col-12"> 
+
+    <td colspan="9">
+      <button 
+        type="button" 
+        class="btn btn-sm btn-outline-secondary" 
+        data-toggle="collapse" data-target=".multicollapse"
+      >
+        О проводке...
+      </button>
+    </td>
+  </tr>
+
+  {# fixed set of 3 book-acc.pairs for shipping hot-transaction #}
+  {% if tab_class == "new" and hot_transaction|stringformat:"s" == shipping_hot_id|stringformat:"s" %} 
+
+    {% for acc_names_pair, acc_shadow_ids_pair in shipping_pairs_zip %}
+
+      <tr 
+        id="{{ tab_name }}-collapseme" 
+        class="collapse out multicollapse book-acc-set"
+      >
+        {# deb_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетДебет:
+        </th>
+        <td class="col-2 align-middle">
+          <select 
+            class="custom-select custom-select-sm save-shadow-special never-empty"
+            field_var="deb-account" 
+          >
+            <option 
+              shadow_id="{{ acc_shadow_ids_pair.0 }}"
+              selected
+            >
+              {{ acc_names_pair.0 }}
+            </option>
+          </select>
+        </td>
+        {# cred_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетКредит:
+        </th>
+        <td class="col-2 align-middle">
+          <select 
+            class="custom-select custom-select-sm save-shadow-special never-empty"
+            field_var="cred-account" 
+          >
+            <option 
+              shadow_id="{{ acc_shadow_ids_pair.1 }}"
+              selected
+            >
+              {{ acc_names_pair.1 }}
+            </option>
+          </select>
+        </td>
+        <td class="text-right"
+          colspan="5"
+        >
+        </td>
+      </tr>
+
+    {% endfor %}
+
+  {# or dyn.pre-filled set of book-acc.pairs for others #}
+  {% else%} 
+
+      <tr 
+        id="{{ tab_name }}-collapseme" 
+        class="collapse out multicollapse book-acc-set"
+      >
+        {# deb_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетДебет:
+        </th>
+        <td class="col-2 align-middle">
+          {{ cells_arr.6 }}
+        </td>
+        {# cred_account #}
+        <th class="col-1 align-middle text-right" scope="row">
+          СчетКредит:
+        </th>
+        <td class="col-2 align-middle">
+          {{ cells_arr.7 }}
+        </td>
+        <td class="text-right"
+          colspan="5"
+        >
+        </td>
+    </tr>
+
+  {% endif %} 
+
+  <tr 
+    id="{{ tab_name }}-collapse-rows-tail"
+    class="col-12 collapse out multicollapse"
+  > 
+  </tr>
+
+  {% comment %} 
+  stuff for creation case and non-has-goodslines-move case
+  {% endcomment %} 
+  {% if tab_class == 'new' and has_goodslines|stringformat:"s" == "0" %} 
+    <tr 
+      id="{{ tab_name }}-collapseme"
+      class="col-12 collapse out multicollapse" 
+    >
+      <td colspan="9" class="text-right">
+        <button 
+          type="button" 
+          id="add-extra-transaction" 
+          class="btn btn-sm btn-outline-secondary"
+        >
+          &#8592; Добав.счета
+        </button>
+      </td>
+    </tr>
+  {% endif %} 
+
+  <!-- has_goodslines_move flag and following stuff -->
+  <span
+    hidden
+    class="col-2 align-middle{{ row.1.8.3 }}"
+    field_var="{{ row.1.8.6 }}" 
+  >
+    {{ row.1.8.0  }}
+  </span>
+
+  <tr class="col-12"> 
+  <td colspan="9" class="text-right">
+  <!-- line ff -->
+  {% if has_goodslines|stringformat:"s" == "1" %}
+    <div 
+      class="container-fluid goodslines-cont"
+    >
+    </div>
+  {% endif %}
+  </td>
+  </tr>
+
+</tr>
