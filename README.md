@@ -42,6 +42,15 @@ It uses Bootstrap and small set of custom JS scripts. As it was said before the 
 All input fields, control buttons and data tables located in the tabs of main page, and the tabs change dynamically with AJAX calls. 
 
 
+=== Some screenshots ===
+
+![Animated GIF 01...](/screenshots/01.gif?raw=true)
+
+![Animated GIF 02...](/screenshots/02.gif?raw=true)
+
+![Animated GIF 03...](/screenshots/03.gif?raw=true)
+
+
 === Contacts ===
 
 e-mail:   buturumus@gmail.com
