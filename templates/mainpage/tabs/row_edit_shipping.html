@@ -25,7 +25,7 @@
 
       {# human_id #}
       <th class="col-1 align-middle text-right" scope="row">
-        Код:
+        {{ header_titles.0 }}
       </th>
       <td
         class="col-2 align-middle"
@@ -35,7 +35,7 @@
 
       {# hot_transaction #}
       <th class="col-1 align-middle text-right" scope="row">
-        Тип:
+        {{ header_titles.3 }}
       </th>
       <td
         class="col-2 align-middle"
@@ -57,7 +57,7 @@
 
       {# date #}
       <th class="col-1 align-middle text-right" scope="row">
-        Дата:
+        {{ header_titles.1 }}
       </th>
       <td class="col-2 align-middle">
         {{ cells_arr.1 }}
@@ -65,7 +65,7 @@
 
       {# partner #}
       <th class="col-1 align-middle text-right" scope="row">
-        Кагент:
+        {{ header_titles.2 }}
       </th>
       <td class="col-2 align-middle">
         {{ cells_arr.2 }}
@@ -81,27 +81,15 @@
 
       {# money #}
       <th class="col-1 align-middle text-right" scope="row">
-        Сумма:
+        {{ header_titles.4 }}
       </th>
       <td class="col-2 align-middle">
         {{ cells_arr.4 }}
       </td>
 
-  {% comment %}
-      <!-- extra field for shipping transaction only -->
-      <span 
-        {# id="{{ tab_name }}-input-cost_money" #}
-        {# class="{{ tab_name }}-input" #}
-        hidden
-      >
-        0
-      </span>
-        {{ row_id }}      
-  {% endcomment %}
-
       {# comment #}
       <th class="col-1 align-middle text-right" scope="row">
-        Прим.:
+        {{ header_titles.5 }}
       </th>
       <td class="col-8 align-middle" colspan="2">
         {{ cells_arr.5 }}
@@ -118,7 +106,7 @@
         class="btn btn-sm btn-outline-secondary" 
         data-toggle="collapse" data-target=".multicollapse"
       >
-        О проводке...
+        {{ edit_tr_details }}  
       </button>
     </td>
   </tr>
@@ -132,7 +120,7 @@
       >
         {# deb_account #}
         <th class="col-1 align-middle text-right" scope="row">
-          СчетДебет:
+          {{ header_titles.6 }}
         </th>
         <td class="col-2 align-middle">
           <select 
@@ -149,7 +137,7 @@
         </td>
         {# cred_account #}
         <th class="col-1 align-middle text-right" scope="row">
-          СчетКредит:
+          {{ header_titles.7 }}
         </th>
         <td class="col-2 align-middle">
           <select 
@@ -188,7 +176,7 @@
           id="add-extra-transaction" 
           class="btn btn-sm btn-outline-secondary"
         >
-          &#8592; Добав.счета
+        &#8592; {{ edit_tr_add_acc }}
         </button>
       </td>
     </tr>

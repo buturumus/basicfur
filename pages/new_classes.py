@@ -950,16 +950,12 @@ class RowEditShipping(RowEditTransaction):
         self.template = TABS_TEMPLATES_DIR + '/' + 'row_edit_shipping.html'
 
 
-class RowEditKilledTransaction(RowEdit): 
+class RowEditKilledTransaction(RowEditTransaction): 
 
     def __init__(self):
         self.template = (
             TABS_TEMPLATES_DIR + '/' + 'row_edit_killed_transaction.html'
         )
-
-    def make_context(self, **kwargs):
-        RowEdit.make_context(self, **kwargs)
-        self.context['cell_making_class'] = CellEditTransaction
 
 
 class RowNew(RowEdit): 
@@ -2622,20 +2618,20 @@ class ShownEditKilledTransaction(ShownEditTransaction):
         self.context['row_making_class'] = RowEditKilledTransaction
         # row-level args
         self.context['header_titles']       = (
-            'Код',
-            'Дата:',
-            'КАгент:',
-            'Тип:',
-            'Сумма:',
-            'Прим.:',
-            'СчетДебет:',
-            'СчетКредит:',
-            'Матер.пров.',
-            'Дата изм.',
-            'Изм.кем',
-            'Дата удал.',
-            'Удал.кем',
-            'Сотр.',
+            MSGS['edit_tr_human_id'][lc_id],         
+            MSGS['edit_tr_date'][lc_id],            
+            MSGS['edit_tr_partner'][lc_id],        
+            MSGS['edit_tr_hot_transaction'][lc_id], 
+            MSGS['edit_tr_money'][lc_id],          
+            MSGS['edit_tr_comment'][lc_id],       
+            MSGS['edit_tr_deb_account'][lc_id],  
+            MSGS['edit_tr_cred_account'][lc_id],
+            MSGS['edit_tr_has_goodslines'][lc_id],   
+            MSGS['edit_tr_create_date'][lc_id],     
+            MSGS['edit_tr_created_by'][lc_id],     
+            MSGS['edit_tr_kill_date'][lc_id],     
+            MSGS['edit_tr_killed_by'][lc_id],     
+            MSGS['edit_tr_employee'][lc_id],     
         )
         self.context['row_model'] = KilledTransaction
         # cell-level args

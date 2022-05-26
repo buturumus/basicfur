@@ -285,6 +285,8 @@ MSGS = {
     'edit_tr_employee': ('Employee:', ),     
     'edit_tr_details': ('Details...', ),     
     'edit_tr_add_acc': ('Add acc.', ),     
+    'edit_tr_kill_date': ('Del.date', ),     
+    'edit_tr_killed_by': ('Del.by', ),     
     # dk_prefix
     'deb_prefix': ('D', ),     
     'cred_prefix': ('C', ),     
