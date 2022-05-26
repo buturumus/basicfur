@@ -7,11 +7,13 @@ It is a modern clone of some old and buggy ms access app which is still used by 
 Mainly these guys are furniture makers but the application is very common and does not have any furniture-specific features. 
 
 
+
 === What's it all about ===
 
 This is a web application which allows you to enter, save and analyse information about money transfers, purchases, inventories, stock etc for a small production company. It uses classical accounting principles such as money/goods movements, double entries, account charts and so on.
 
 Initially there was limited set of features in the old prototype software and the main goal was to reproduce them only. There is custom chart of accounts and limited set of transactions (with maybe unusual names if you are an accountant). It planned to be runned on a couple of PCs with Firefox and some dedicated server, so the app is NOT mobile-adapted and nobody payed great attention to performance.
+
 
 
 === Accounting concept ===
@@ -24,6 +26,7 @@ Also there's set of filters in the sidebar, which can be applied to analytical t
 
 Every transaction belongs to one of two groups: money movements and goods movements. Latter contains specification, i.e.extra set of fields related to some goods, their price (or 2 prices: purchase and selling) and quantity. 
 Apart from maybe unusual names there are some other features which had to be cloned 'as is' from the prototype software. For example, negative balance is some tables should be shown simply with '-' sign but in other place with 'D' or 'C' prefix (Debit/Credit). 
+
 
 
 === Development stack ===
@@ -42,6 +45,20 @@ It uses Bootstrap and small set of custom JS scripts. As it was said before the 
 All input fields, control buttons and data tables located in the tabs of main page, and the tabs change dynamically with AJAX calls. 
 
 
+
+=== Live preview ===
+
+Currently the project can be viewed on Heroku:
+
+
+https://safe-citadel-44106.herokuapp.com/
+
+
+username: test
+password: test
+
+
+
 === Some screenshots ===
 
 ![Animated GIF 01...](/screenshots/01.gif?raw=true)
@@ -51,10 +68,17 @@ All input fields, control buttons and data tables located in the tabs of main pa
 ![Animated GIF 03...](/screenshots/03.gif?raw=true)
 
 
+
 === Contacts ===
 
+
 e-mail:   buturumus@gmail.com
+
+
 telegram: @buturumus
+
+
 Alexander
+
 
 
