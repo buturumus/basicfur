@@ -3,6 +3,11 @@
 BasicFur - Basic accounting and store for Furniture production
 --------------------------------------------------------------
 
+!!!
+New "no-deadline" version with traditional CBViews, JS classes and so on:
+https://github.com/buturumus/basicfur02
+
+
 It is a modern clone of some old and buggy ms access app which is still used by a few small- and middle-sized manufacturing companies in Ukraine. 
 Mainly these guys are furniture makers but the application is very common and does not have any furniture-specific features. 
 
